@@ -1,0 +1,128 @@
+<template>
+  <div class="thanksPop">
+    <div class="bg" @click="clozPop"></div>
+
+    <div class="container">
+      <transition name="fade">
+        <div v-show="!isSending">
+          <div class="clozBtn" @click="clozPop"></div>
+          <h1 class="goldTxt mt-1 ta-c ls-1 fw-b">炸彈上路</h1>
+          <h3 class="wTxt mt-1 ta-c">BOMB IS ON THE WAY</h3>
+          <img :src="picUrl" alt class="mt-2" />
+          <div class="d-f mt-5 jc-sb">
+            <a
+              href="https://calendar.google.com/event?action=TEMPLATE&tmeid=N3Roa2dtY3FzdmJiZnBoaDc5N2pkZWYxNWsgdW50aWw1MDAwQG0&tmsrc=until5000%40gmail.com"
+              target="_blank"
+              class="txtBtn"
+            >我金魚我需要提醒</a>
+            <a href="https://g.page/lebledor-miramar?share" target="_blank" class="txtBtn">我路癡我需要帶路</a>
+          </div>
+        </div>
+      </transition>
+      <div  v-show="isSending">
+        <h2 class="goldTxt ta-c ls-1 fw-b load">炸彈訂單處理中</h2>
+        <h3 class="grayTxt mt-2 ta-c">究竟會不會成功呢</h3>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+
+export default {
+  name: 'ThankPop',
+  props: [
+    'isSending',
+  ],
+  data() {
+    return {
+      uu: '123',
+      gifs: [
+        'https://media.giphy.com/media/26tnoLlWMAUosSvuM/giphy.gif',
+        'https://media.giphy.com/media/xUOxeXt41UOYRusw4E/giphy.gif',
+        'https://media.giphy.com/media/e2gVVjM3amp6o/giphy.gif',
+        'https://media.giphy.com/media/3rXs5J0hZkXwTZjuvM/giphy.gif',
+        'https://media.giphy.com/media/QT9SVRVexMgOk/giphy.gif',
+        'https://media.giphy.com/media/aW8GS805yvx3W/giphy.gif',
+        'https://media.giphy.com/media/umx6jg60LvDZC/giphy.gif',
+        'https://media.giphy.com/media/B7HroiUqNPv1e/giphy.gif',
+      ],
+    };
+  },
+  computed: {
+    picUrl() {
+      const arr = this.gifs;
+      console.log(arr.length);
+
+      return arr[Math.floor(Math.random() * arr.length)];
+    },
+  },
+  methods: {
+    clozPop() {
+      this.$emit('clozPop');
+    },
+  },
+};
+</script>
+
+
+<style lang="sass" scoped>
+
+
+@keyframes load
+  0%
+    opacity: 1
+  50%
+    opacity: .6
+  100%
+    opacity: 1
+.load
+  animation-name: load
+  animation-duration: .1s
+  animation-iteration-count: infinite
+.thanksPop
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 20
+  display: flex
+  justify-content: center
+  align-items: center
+  padding: 25px
+  .bg
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(black,.6)
+  .container
+    width: 100%
+    max-width: 600px
+    padding: 60px 90px
+    background-color: rgba($dark,.9)
+    min-width: 300px
+    position: relative
+    z-index: 2
+    border: 1px solid rgba($gold,.5)
+    transition-duration: .3s
+    +phone
+      padding: 60px 50px
+    img
+      display: block
+      margin: 0 auto
+      width: 100%
+      display: block
+  .clozBtn
+    position: absolute
+    top: 25px
+    right: 20px
+    cursor: pointer
+    background-image: url(~@/assets/cloz.png)
+    width: 60px
+    height: 60px
+      // max-width: 400px
+</style>

@@ -1,28 +1,87 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="mainContainer">
+      <TopBanner id="topBanner"></TopBanner>
+      <ScrollTip v-scroll-to="{ element: '#weddingForm', duration: 1200 }"></ScrollTip>
+      <WeddingForm
+        id="weddingForm"
+        @sendForm="onSendForm"
+        @sendForm_success="onSendForm_success"
+        @sendForm_error="onSendForm_error"
+      ></WeddingForm>
+      <ScrollTip2 v-scroll-to="{ element: '#topBanner', duration: 2000 }"></ScrollTip2>
+      <BottomBanner></BottomBanner>
+      <transition name="fade">
+        <ThanksPop v-show="showThanksPop" :isSending="isSending" @clozPop="clozPop"></ThanksPop>
+      </transition>
+      <div id="bottom"></div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import TopBanner from './components/TopBanner.vue';
+import ScrollTip from './components/ScrollTip.vue';
+import ScrollTip2 from './components/ScrollTip2.vue';
+import WeddingForm from './components/WeddingForm.vue';
+import BottomBanner from './components/BottomBanner.vue';
+import ThanksPop from './components/ThanksPop.vue';
+
+import 'reset-css';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
+    TopBanner,
+    ScrollTip,
+    ScrollTip2,
+    WeddingForm,
+    BottomBanner,
+    ThanksPop,
+  },
+  data() {
+    return {
+      showThanksPop: false,
+      isSending: true,
+    };
+  },
+  methods: {
+    clozPop() {
+      this.showThanksPop = false;
+      // const cancelScroll = VueScrollTo.scrollTo('#bottom');
+      // cancelScroll = this.$scrollTo(element, duration, options)
+      this.$scrollTo('#bottom', 3000);
+    },
+    onSendForm() {
+      this.showThanksPop = true;
+      this.isSending = true;
+    },
+    onSendForm_success() {
+      this.showThanksPop = true;
+      this.isSending = false;
+    },
+    onSendForm_error() {
+      alert('人有失足馬有亂蹄，程式沒寫好有BUG，是可以原諒的，喝杯茶我們休息一下，等一下再試，我們不要那麼急');
+      this.showThanksPop = false;
+    },
   },
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass">
+#app
+  background-color: #151617
+  min-height: 100vh
+
+.mainContainer
+  max-width: 860px
+  margin: 0 auto
+  min-height: 100vh
+  background-color: #232729
+
+html
+  font-family: "微軟正黑體","Microsoft JhengHei", "STHeiti Light", "STHeiti", Arial, sans-serif
+input:focus
+  outline: 0
+
 </style>
