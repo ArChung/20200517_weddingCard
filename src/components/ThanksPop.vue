@@ -11,11 +11,12 @@
           <img :src="picUrl" alt class="mt-2" />
           <div class="d-f mt-5 jc-sb">
             <a
-              href="https://calendar.google.com/event?action=TEMPLATE&tmeid=N3Roa2dtY3FzdmJiZnBoaDc5N2pkZWYxNWsgdW50aWw1MDAwQG0&tmsrc=until5000%40gmail.com"
+              href="https://calendar.google.com/event?action=TEMPLATE&tmeid=MGo3bTY3Zjlva3ZwcHBvZGIza2RudG11dnEgazdqMmJwNXJiZGpyNWc0dTRzMDVuYmhxczRAZw&tmsrc=k7j2bp5rbdjr5g4u4s05nbhqs4%40group.calendar.google.com"
               target="_blank"
               class="txtBtn"
+              @click='onCalender()'
             >我金魚我需要提醒</a>
-            <a href="https://g.page/lebledor-miramar?share" target="_blank" class="txtBtn">我路癡我需要帶路</a>
+            <a href="https://g.page/lebledor-miramar?share" @click='onMap()' target="_blank" class="txtBtn">我路癡我需要帶路</a>
           </div>
         </div>
       </transition>
@@ -47,21 +48,27 @@ export default {
         'https://media.giphy.com/media/aW8GS805yvx3W/giphy.gif',
         'https://media.giphy.com/media/umx6jg60LvDZC/giphy.gif',
         'https://media.giphy.com/media/B7HroiUqNPv1e/giphy.gif',
+        'https://media1.tenor.com/images/87611a901ac6fd8a79bb1c7c2e5f3e49/tenor.gif?itemid=15429820',
+        'https://media1.tenor.com/images/76b0c6808fc1f665f7efd60896abc824/tenor.gif?itemid=4118922',
+        'https://media1.tenor.com/images/2cbe796de7fcdf076e7d581a35254b10/tenor.gif?itemid=15030119',
       ],
+      picUrl: '',
     };
-  },
-  computed: {
-    picUrl() {
-      const arr = this.gifs;
-      console.log(arr.length);
-
-      return arr[Math.floor(Math.random() * arr.length)];
-    },
   },
   methods: {
     clozPop() {
       this.$emit('clozPop');
     },
+    onCalender() {
+      this.$ga.event('onCalender', 'click', 'label', 'value');
+    },
+    onMap() {
+      this.$ga.event('onMap', 'click', 'label', 'value');
+    },
+  },
+  beforeUpdate() {
+    const arr = this.gifs;
+    this.picUrl = arr[Math.floor(Math.random() * arr.length)];
   },
 };
 </script>

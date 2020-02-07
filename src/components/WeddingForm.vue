@@ -9,13 +9,13 @@
           <div class="title">會來嗎</div>
           <ValidationProvider rules="required_attend" v-slot="{ errors }">
             <div class="d-f">
-              <div class='btnBox'>
+              <div class="btnBox">
                 <input type="radio" value="yes" v-model="formData.attend" id="attend_yes" />
-                <div class="btn" @click="formData.attend = 'yes'">會</div>
+                <div class="btn" @click="onAttend('yes')">會</div>
               </div>
-              <div class='btnBox'>
+              <div class="btnBox">
                 <input type="radio" value="no" v-model="formData.attend" id="attend_no" />
-                <div class="btn" @click="formData.attend = 'no'">書面申請不能到場</div>
+                <div class="btn" @click="onAttend('no')">書面申請不能到場</div>
               </div>
             </div>
             <div class="errorMsg">{{ errors[0] }}</div>
@@ -48,7 +48,7 @@
                   v-model="formData.whosFriend"
                   @change.stop="formData.friendPeriod=null"
                 />
-                <div class="preson m1" @click="formData.whosFriend='vicky'">
+                <div class="preson m1" @click="onWhosFriend('vicky')">
                   <div class="innerPic m1"></div>
                 </div>
               </div>
@@ -59,7 +59,7 @@
                   v-model="formData.whosFriend"
                   @change.stop="formData.friendPeriod=null"
                 />
-                <div class="preson m2" @click="formData.whosFriend='arChung'">
+                <div class="preson m2" @click="onWhosFriend('arChung')">
                   <div class="innerPic m2"></div>
                 </div>
               </div>
@@ -79,14 +79,18 @@
               v-slot="{ errors }"
             >
               <div class="d-f">
-                <div v-for="(item, index) in friendPeriod" :key="index+formData.whosFriend" class="btnBox">
+                <div
+                  v-for="(item, index) in friendPeriod"
+                  :key="index+formData.whosFriend"
+                  class="btnBox"
+                >
                   <input
                     type="radio"
                     :value="item"
                     v-model="formData.friendPeriod"
                     @change="formData.otherTableName=''"
                   />
-                  <div class="btn" @click="formData.friendPeriod=item">{{item}}</div>
+                  <div class="btn" @click="onFriendPeriod(item)">{{item}}</div>
                 </div>
                 <div class="space"></div>
               </div>
@@ -94,13 +98,13 @@
 
               <div v-show="formData.friendPeriod !='其他桌' ">
                 <input type="radio" value="其他桌" v-model="formData.friendPeriod" />
-                <div class="txtBtn" @click="formData.friendPeriod='其他桌'">幫我另開一桌</div>
+                <div class="txtBtn" @click="onFriendPeriod_other()">這些桌名我都不喜歡</div>
               </div>
             </ValidationProvider>
           </div>
           <transition name="fade">
             <div v-show="formData.friendPeriod =='其他桌' ">
-              <h3 class="goldTxt">你那桌想叫啥?</h3>
+              <h3 class="goldTxt">那你那桌想叫啥?</h3>
               <input
                 type="text"
                 v-model="formData.otherTableName"
@@ -180,7 +184,7 @@
               </ValidationProvider>
             </label>
 
-            <label class="infoWrap">
+            <!-- <label class="infoWrap">
               <ValidationProvider rules="required" v-slot="{ errors }">
                 <div class="txt">線索</div>
                 <input
@@ -191,12 +195,12 @@
                 />
                 <span class="errorMsg mt-1">{{ errors[0] }}</span>
               </ValidationProvider>
-            </label>
+            </label> -->
 
-            <div class="txtBtn" v-show="!showAddr" @click="showAddr=true">在下非要紙本喜帖不可</div>
+            <div class="txtBtn" v-show="!showAddr" @click="onAdress()">在下非要紙本喜帖不可</div>
             <transition name="fade">
-              <div v-show="showAddr" style='width: 100%'>
-                <label class="infoWrap" >
+              <div v-show="showAddr" style="width: 100%">
+                <label class="infoWrap">
                   <div class="txt">宅邸</div>
                   <input
                     type="text"
@@ -205,7 +209,7 @@
                     class="longInput"
                   />
                 </label>
-                <div class="txtBtn mt-3" @click="showAddr=false">沒事我開玩笑的在下環保人</div>
+                <div class="txtBtn mt-3" @click="onNoAdress()">沒事我開玩笑的在下環保人</div>
               </div>
             </transition>
           </div>
@@ -242,7 +246,7 @@ export default {
       clickSend: false,
       formData: {
         name: '',
-        lineid: '',
+        // lineid: '',
         attend: null,
         whosFriend: null,
         friendPeriod: null,
@@ -258,7 +262,7 @@ export default {
       },
       testFormData: {
         name: '游志忠test',
-        lineid: 'ar.chung',
+        // lineid: 'ar.chung',
         attend: 'yes',
         whosFriend: 'arChung',
         friendPeriod: '主桌',
@@ -273,10 +277,10 @@ export default {
       },
       coupleData: {
         vicky: {
-          friendPeriod: ['主桌', '親戚', '國中', '高中', '大學', '球隊', '富邦', '同事'],
+          friendPeriod: ['主桌', '親戚', '大直國中', '大直高中', '淡江大學', '淡江網球隊', '富邦證卷', '皓崴投資', 'IPEVO'],
         },
         arChung: {
-          friendPeriod: ['主桌', '親戚', '國中', '高中', '大學', '牧耘', '李奧貝納', '搖擺舞', '民生室友', '甜約翰'],
+          friendPeriod: ['主桌', '親戚', '中山國中', '名師補習班', '板橋高中', '成功大學', '嗨歪牧耘', '李奧貝納', '搖擺舞', '民生室友', '甜約翰'],
         },
       },
     };
@@ -325,6 +329,32 @@ export default {
       // const num = Number.parseInt(item.num) || 0;
 
       // item.num = num > item.stockCount ? item.stockCount : (num < 0 ? 0 : num)
+    },
+
+    // from
+    onAttend(val) {
+      this.formData.attend = val;
+      this.$ga.event('attend', 'click', 'label', val);
+    },
+    onWhosFriend(val) {
+      this.formData.whosFriend = val;
+      this.$ga.event('whosFriend', 'click', 'label', val);
+    },
+    onFriendPeriod(val) {
+      this.formData.friendPeriod = val;
+      this.$ga.event('friendPeriod', 'click', 'label', val);
+    },
+    onFriendPeriod_other() {
+      this.formData.friendPeriod = '其他桌';
+      this.$ga.event('other_friendPeriod', 'click', 'label', 'value');
+    },
+    onAdress() {
+      this.showAddr = true;
+      this.$ga.event('i_want_paper', 'click', 'label', 'value');
+    },
+    onNoAdress() {
+      this.showAddr = false;
+      this.$ga.event('i_dontwant_paper', 'click', 'label', 'value');
     },
   },
 };

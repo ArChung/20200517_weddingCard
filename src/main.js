@@ -15,6 +15,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueScrollTo from 'vue-scrollto';
 import FastClick from 'fastclick';
+import VueAnalytics from 'vue-analytics';
 import App from './App.vue';
 
 // css
@@ -63,6 +64,9 @@ if ('addEventListener' in document) {
   }, false);
 }
 
+Vue.use(VueAnalytics, {
+  id: 'UA-157944047-1',
+});
 Vue.use(VueScrollTo);
 Vue.use(VueAxios, axios);
 Vue.use(VueAwesomeSwiper);

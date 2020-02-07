@@ -51,18 +51,22 @@ export default {
       // const cancelScroll = VueScrollTo.scrollTo('#bottom');
       // cancelScroll = this.$scrollTo(element, duration, options)
       this.$scrollTo('#bottom', 3000);
+      this.$ga.event('clozThxPop_goBottom', 'click', 'label', 'value');
     },
     onSendForm() {
       this.showThanksPop = true;
       this.isSending = true;
+      this.$ga.event('onSendForm', 'click', 'label', 'value');
     },
     onSendForm_success() {
       this.showThanksPop = true;
       this.isSending = false;
+      this.$ga.event('onSendForm_success', 'click', 'label', 'value');
     },
     onSendForm_error() {
       alert('人有失足馬有亂蹄，程式沒寫好有BUG，是可以原諒的，喝杯茶我們休息一下，等一下再試，我們不要那麼急');
       this.showThanksPop = false;
+      this.$ga.event('onSendForm_error', 'click', 'label', 'value');
     },
   },
 };
