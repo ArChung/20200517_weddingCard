@@ -69,6 +69,17 @@ export default {
       this.$ga.event('onSendForm_error', 'click', 'label', 'value');
     },
   },
+  created() {
+    const sUserAgent = navigator.userAgent.toLowerCase();
+    const bIsAndroid = sUserAgent.match(/android/i) === 'android';
+    if (bIsAndroid) {
+      const uiWidth = 580;
+      const deviceWidth = window.innerWidth;
+      const getTargetDensitydpi = uiWidth / deviceWidth * window.devicePixelRatio * 160;
+      const targetDensitydpi = `target-densitydpi=${getTargetDensitydpi}, width=580, user-scalable=no`;
+      document.getElementsByName('viewport')[0].setAttribute('content', targetDensitydpi);
+    }
+  },
 };
 </script>
 
