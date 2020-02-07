@@ -4,18 +4,18 @@
     <!-- 出席 -->
     <ValidationObserver v-slot="{ handleSubmit,invalid }">
       <form @submit.prevent="handleSubmit(onSubmit)">
-        <div class="q_box">
+        <div class="q_box" id='attend'>
           <div class="subTitle">首先</div>
           <div class="title">會來嗎</div>
           <ValidationProvider rules="required_attend" v-slot="{ errors }">
-            <div class="d-f">
+            <div class="d-f" >
               <div class="btnBox">
                 <input type="radio" value="yes" v-model="formData.attend" id="attend_yes" />
-                <div class="btn" @click="onAttend('yes')">會</div>
+                <div class="btn" @click="onAttend('yes')" v-scroll-to="'#whosFriend'">會</div>
               </div>
               <div class="btnBox">
                 <input type="radio" value="no" v-model="formData.attend" id="attend_no" />
-                <div class="btn" @click="onAttend('no')">書面申請不能到場</div>
+                <div class="btn" @click="onAttend('no')" v-scroll-to="'#attend'">書面申請不能到場</div>
               </div>
             </div>
             <div class="errorMsg">{{ errors[0] }}</div>
@@ -23,6 +23,7 @@
           <transition name="fade">
             <div class="d-f f-c" v-show="formData.attend=='no'">
               <textarea
+              id='resonCantCome'
                 v-model="formData.resonCantCome"
                 placeholder="你幹嘛不來你為什麼不來哪有那麼重要的事你騙我你幹嘛不來你幹嘛不來幹嘛不來你幹嘛不來你幹嘛不來你為什麼不來哪有那麼重要的事你騙我你幹嘛不來你幹嘛不來幹嘛不來你幹嘛不來你幹嘛不來你為什麼不來哪有那麼重要的事你騙我你幹嘛不來你幹嘛不來幹嘛不來你幹嘛不來"
               ></textarea>
@@ -33,7 +34,7 @@
         </div>
 
         <!-- 誰朋友 -->
-        <div class="q_box">
+        <div class="q_box" id='whosFriend'>
           <div class="subTitle">事關有沒餅</div>
           <div class="title">你認識誰</div>
           <ValidationProvider
@@ -48,7 +49,7 @@
                   v-model="formData.whosFriend"
                   @change.stop="formData.friendPeriod=null"
                 />
-                <div class="preson m1" @click="onWhosFriend('vicky')">
+                <div class="preson m1" @click="onWhosFriend('vicky')" v-scroll-to="'#friendPeriod'">
                   <div class="innerPic m1"></div>
                 </div>
               </div>
@@ -59,7 +60,7 @@
                   v-model="formData.whosFriend"
                   @change.stop="formData.friendPeriod=null"
                 />
-                <div class="preson m2" @click="onWhosFriend('arChung')">
+                <div class="preson m2" @click="onWhosFriend('arChung')" v-scroll-to="'#friendPeriod'">
                   <div class="innerPic m2"></div>
                 </div>
               </div>
@@ -69,7 +70,7 @@
         </div>
 
         <!-- 我們很自由 -->
-        <div class="q_box">
+        <div class="q_box" id='friendPeriod'>
           <div class="subTitle">我們很自由</div>
           <div class="title">想坐哪裡</div>
           <div class="errorMsg" v-show="!formData.whosFriend">↑ 先選一下誰朋友，不然坐外面</div>
@@ -90,7 +91,7 @@
                     v-model="formData.friendPeriod"
                     @change="formData.otherTableName=''"
                   />
-                  <div class="btn" @click="onFriendPeriod(item)">{{item}}</div>
+                  <div class="btn" @click="onFriendPeriod(item)" v-scroll-to="'#attendNum'">{{item}}</div>
                 </div>
                 <div class="space"></div>
               </div>
@@ -116,7 +117,7 @@
         </div>
 
         <!-- 幾大幾小幾個吃素 -->
-        <div class="q_box">
+        <div class="q_box" id='attendNum'>
           <div class="subTitle">小的是要坐兒童椅那種小</div>
           <div class="title">幾大幾小幾個吃素</div>
           <div class="d-f">
