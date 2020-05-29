@@ -42,7 +42,7 @@ export default {
         speed: 1000,
         roundLengths: true,
         autoplay: {
-          delay: 1200,
+          delay: 800,
         },
 
       },
