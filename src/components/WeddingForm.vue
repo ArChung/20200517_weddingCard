@@ -6,12 +6,12 @@
       <form @submit.prevent="handleSubmit(onSubmit)">
         <div class="q_box" id='attend'>
           <div class="subTitle">首先</div>
-          <div class="title">會來嗎</div>
+          <div class="title">(還)會來嗎</div>
           <ValidationProvider rules="required_attend" v-slot="{ errors }">
             <div class="d-f" >
               <div class="btnBox">
                 <input type="radio" value="yes" v-model="formData.attend" id="attend_yes" />
-                <div class="btn" @click="onAttend('yes')" v-scroll-to="'#whosFriend'">會</div>
+                <div class="btn" @click="onAttend('yes')" v-scroll-to="'#whosFriend'">還會啦</div>
               </div>
               <div class="btnBox">
                 <input type="radio" value="no" v-model="formData.attend" id="attend_no" />
@@ -99,7 +99,7 @@
 
               <div v-show="formData.friendPeriod !='其他桌' ">
                 <input type="radio" value="其他桌" v-model="formData.friendPeriod" />
-                <div class="txtBtn" @click="onFriendPeriod_other()">這些桌名我都不喜歡</div>
+                <div class="txtBtn" @click="onFriendPeriod_other()">你忘了我這桌</div>
               </div>
             </ValidationProvider>
           </div>
@@ -218,8 +218,8 @@
 
         <!-- 塗鴉牆-->
         <div class="q_box">
-          <div class="subTitle">暢所欲言 有問必答</div>
-          <div class="title">塗鴉牆</div>
+          <div class="subTitle">有問必答</div>
+          <div class="title">客訴</div>
           <div class="d-f">
             <textarea placeholder="來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊來啊" v-model="formData.words"></textarea>
           </div>
