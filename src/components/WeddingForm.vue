@@ -302,7 +302,8 @@ export default {
     onSubmit() {
       this.$emit('sendForm');
 
-      const apiUrl = 'https://script.google.com/macros/s/AKfycbyp2apWfIwHaVRWtce95ipPf_LQnatR8jXYk4PJVoZtFD4iIdQK/exec';
+      // const apiUrl = 'https://script.google.com/macros/s/AKfycbyp2apWfIwHaVRWtce95ipPf_LQnatR8jXYk4PJVoZtFD4iIdQK/exec';
+      const apiUrl = '';
 
       this.axios.get(apiUrl, {
         params: this.formData,
